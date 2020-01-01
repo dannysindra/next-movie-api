@@ -4,6 +4,8 @@ node_js:
 warnings_are_errors: false
 install:
   - npm install
+  - cd functions
+  - npm install
 deploy:
   - provider: firebase
     project: dev
