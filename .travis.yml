@@ -6,6 +6,7 @@ install:
   - npm install
   - cd functions
   - npm install
+  - cd ..
 deploy:
   - provider: firebase
     project: dev
