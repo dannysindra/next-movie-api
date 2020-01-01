@@ -1,0 +1,17 @@
+{
+    "name": "next-movie-api",
+    "version": "0.0.1",
+    "dependencies": {
+        "apollo-datasource-rest": "^0.1.5",
+        "apollo-server-cloud-functions": "2.9.15",
+        "graphql": "^14.2.1",
+        "lodash": "^4.17.15"
+    },
+    "devDependencies": {
+        "apollo-server": "2.6.1",
+        "dotenv": "^8.2.0"
+    },
+    "scripts": {
+        "start": "node -r dotenv/config local-server.js"
+    }
+}
