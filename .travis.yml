@@ -8,7 +8,7 @@ before_script:
   - cd functions
   - npm install
 script:
-  - npm run build
+  - npm run deploy
 deploy:
   - provider: firebase
     project: dev
