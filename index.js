@@ -6,7 +6,7 @@ const server = new ApolloServer(config);
 const handler = server.createHandler({
     cors: {
         origin: true,
-        credentials: true,
+        credentials: true
     }
 });
 
