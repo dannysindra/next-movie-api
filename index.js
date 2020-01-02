@@ -7,6 +7,4 @@ const handler = server.createHandler({
     origin: true
 });
 
-module.exports = {
-    handler: functions.https.onRequest(handler)
-};
+exports.handler = functions.https.onRequest(handler);
