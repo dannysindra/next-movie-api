@@ -1,9 +1,12 @@
+sudo: false
 language: node_js
 node_js:
-  - "node"
+  - "8"
 warnings_are_errors: false
 install:
   - npm install
+script:
+  - npm run deploy
 deploy:
   - provider: firebase
     project: dev
