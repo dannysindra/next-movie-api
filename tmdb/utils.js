@@ -67,7 +67,7 @@ const toLocaleShortDate = date =>
     !date
         ? 'N/A'
         : new Date(date).toLocaleDateString('en-US', {
-              month: 'short',
+              month: 'long',
               day: 'numeric'
           });
 
