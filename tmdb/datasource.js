@@ -1,7 +1,7 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 const functions = require('firebase-functions');
 
-const api_key = functions.config().tmdb ? functions.config().tmdb.key || process.env.TMDB_API_KEY;
+const api_key = functions.config().tmdb ? functions.config().tmdb.key : process.env.TMDB_API_KEY;
 
 class TmdbAPI extends RESTDataSource {
     constructor() {
