@@ -10,6 +10,7 @@ deploy:
   - provider: script
     skip_cleanup: true
     script:
+      - firebase use dev
       - firebase functions:config:set tmdb.key=${TMDB_API_KEY}
       - firebase deploy --non-interactive --project dev --token ${FIREBASE_TOKEN}
     on:
@@ -17,6 +18,7 @@ deploy:
   - provider: script
     skip_cleanup: true
     script:
+      - firebase use prod
       - firebase functions:config:set tmdb.key=${TMDB_API_KEY}
       - firebase deploy --non-interactive --project prod --token ${FIREBASE_TOKEN}
     on:
