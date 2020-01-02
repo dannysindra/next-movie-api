@@ -6,8 +6,6 @@ before_install:
   - npm install -g firebase-tools
 install:
   - npm install
-before_deploy:
-  - firebase functions:config:set tmdb.key=TMDB_API_KEY
 deploy:
   - provider: firebase
     project: dev
