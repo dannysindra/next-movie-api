@@ -27,7 +27,7 @@ const config = {
     }),
     dataSources,
     playground: true,
-    inspection: true
+    introspection: true
 };
 
 module.exports = { config };
