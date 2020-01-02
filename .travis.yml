@@ -5,8 +5,6 @@ node_js:
 warnings_are_errors: false
 install:
   - npm install
-script:
-  - npm run deploy
 deploy:
   - provider: firebase
     project: dev
@@ -22,3 +20,5 @@ deploy:
       secure: PwheTq/9ad+WWzvcY0drzbSQbUl7kuB8IO+rUW+eN5Py8nQlAUZgvHjyv5D1qmiylV19OHPhp08mDXevWiH3unXdk3gknLwYEY2zNXvgNcQWCKkPYDH/fqUkkm06P8HprByFGzwzUkEWbbhC09RIt3Sxexc6vgTiCTATY2odqcx9RM4WQhQ82qSaIunnXJNkmLJ2cyH/uwYHK03JGcpK+N+yvvlYTiMA1SOCRjVuqu6S+Jjaes5sd91Pt5FfU+4J0olgIgN1tqqGb5xsSP4jHy6+5vmGvc7U5JOP2PVtAOw1Q69u+h2jTe2gWi6olJBdLdjqW8zj2fL10aWNfa9h9ITtBHhI90RTl63h0uS3su+ykC43jOqVENpvjefyrYn0alLU4rnXDeh4o3RRLoeacG0J0y/ajXk6D9yqv3YF6F05rv5kXPGoDmEiPy6Cv4i4hxFA2v1yDRe1uMEN3qu2NX5pylSvMl1RBmpT59imZimZXyqe+bYFr7R0ZXD4PCfS5EOQTh15w21I9m5IBTzFDtsDmVr65yiS+rgBIEkNgWB4raIXfHyFPayxm2S5f1ZfTESQU5Gnj7zGgZb2GWEIEo4ReIWARqrrci9uGKTel5+Psn9raE+j7XdrKOiktjkSkcdk9ejJa1HeVslTuCXvHli6b+hhwtz/Nz+m7E7ySjc=
     on:
       branch: master
+after_deploy:
+  - npm run deploy
