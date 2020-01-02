@@ -1,4 +1,7 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+const functions = require('firebase-functions');
+
+const api_key = functions.config().tmdb ? functions.config().tmdb.key || process.env.TMDB_API_KEY;
 
 class TmdbAPI extends RESTDataSource {
     constructor() {
@@ -7,7 +10,7 @@ class TmdbAPI extends RESTDataSource {
     }
 
     willSendRequest(request) {
-        request.params.append(`api_key`, process.env.TMDB_API_KEY)
+        request.params.append(`api_key`, api_key)
     }
 
     // Movie
