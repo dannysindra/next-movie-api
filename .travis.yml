@@ -8,6 +8,7 @@ deploy:
   - provider: firebase
     project: dev
     edge: true
+    debug: true
     only: functions
     skip_cleanup: true
     token:
