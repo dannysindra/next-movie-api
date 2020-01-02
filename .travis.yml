@@ -1,13 +1,12 @@
 language: node_js
 node_js:
-  - "8"
+  - "node"
 warnings_are_errors: false
 install:
   - npm install
 deploy:
   - provider: firebase
     project: dev
-    edge: true
     skip_cleanup: true
     token:
       secure: F0lcCcTiwHW9r+IOWT23kJSXb3MM/B7Xt/lEduH4NvdebcZUPnECBxN8PfsV4q8GV7s8hDtBaDpTYHicwdSZN8TG9OCQ78/QaI5y6FmWE9MEDYJGoww2YyDZOsw4Duo1Jq0wrz3kdfMf7WZIPxWz5oMbpQeyDqkyZBCi5vL8pD6jhAW7EgKYvBWxDh6kTC54FRVeQacfl1aB6lqoV0Uka1s8XWDE31de+DUeFSx1XnbwOVHMOxw2UOBWwvtDnq+74TyTZ6CDvfTEmPyfrdw7rfVyffKS/Rgt0Q6vyeBjP87y/ZO9lr0FKiCBy+VOAuEFg/6bbshs5Nu/2bTuRhwAQnXnXGduzYFnMieuHB18B+d8SLY5IZ5R/jCZGe/pa3oEa6HsRyLrtnJPknU3s/YRicA44t4pIJuetZmwYCEqSi4nTjzb1U01Rm0TNjGr0BM62ptgCVBvp2cB9teE/QDIdlma1GKFL65RCyIWSU9Kw48Zsap5+50VLrjFmIh3gkM8yVCSm8u4wNaQFvEkV8F/TNDkBdo5f+eTkG6t50XOpEFmyBySArhY+vtQwwHhle+Ny0Jz3ScoJSyVcXkUvOFBbIo735kQUqiaOuiGojePtrMXQmyyzhrNynaJLalqcrPC2C7qC9IUm3jFxATCEQ9DSWb2V4Auw4inIo2ydRmhF8M=
@@ -15,7 +14,6 @@ deploy:
       branch: develop
   - provider: firebase
     project: prod
-    edge: true
     skip_cleanup: true
     token:
       secure: PwheTq/9ad+WWzvcY0drzbSQbUl7kuB8IO+rUW+eN5Py8nQlAUZgvHjyv5D1qmiylV19OHPhp08mDXevWiH3unXdk3gknLwYEY2zNXvgNcQWCKkPYDH/fqUkkm06P8HprByFGzwzUkEWbbhC09RIt3Sxexc6vgTiCTATY2odqcx9RM4WQhQ82qSaIunnXJNkmLJ2cyH/uwYHK03JGcpK+N+yvvlYTiMA1SOCRjVuqu6S+Jjaes5sd91Pt5FfU+4J0olgIgN1tqqGb5xsSP4jHy6+5vmGvc7U5JOP2PVtAOw1Q69u+h2jTe2gWi6olJBdLdjqW8zj2fL10aWNfa9h9ITtBHhI90RTl63h0uS3su+ykC43jOqVENpvjefyrYn0alLU4rnXDeh4o3RRLoeacG0J0y/ajXk6D9yqv3YF6F05rv5kXPGoDmEiPy6Cv4i4hxFA2v1yDRe1uMEN3qu2NX5pylSvMl1RBmpT59imZimZXyqe+bYFr7R0ZXD4PCfS5EOQTh15w21I9m5IBTzFDtsDmVr65yiS+rgBIEkNgWB4raIXfHyFPayxm2S5f1ZfTESQU5Gnj7zGgZb2GWEIEo4ReIWARqrrci9uGKTel5+Psn9raE+j7XdrKOiktjkSkcdk9ejJa1HeVslTuCXvHli6b+hhwtz/Nz+m7E7ySjc=
