@@ -49,10 +49,10 @@ const toBackdropImgUrl = backdropPath =>
             original: `${IMG_URL}original${backdropPath}`
         };
 
-const toSimilar = similar =>
+const toSimilar = processStrategy => similar =>
     !similar || !similar.results
         ? []
-        : similar.results;
+        : similar.results.map(result => processStrategy(result));
 
 const toLocaleDate = date =>
     !date
@@ -172,22 +172,50 @@ const toTotalSeasons = seasons =>
 const toTotalEpisodes = episodes =>
     episodes ? `${episodes} episode(s)` : 'N/A';
 
+// reducers
+const movieReducer = (entity) => ({
+    id: entity.id,
+    title: entity.title,
+    tagline: entity.tagline,
+    overview: entity.overview,
+    cast: toFeaturedCast(entity.credits),
+    crew: toFeaturedCrew(entity.credits),
+    reviews: toReviews(entity.reviews),
+    similar: toSimilar(movieReducer)(entity.similar),
+    genres: toGenres(entity.genres),
+    runtime: toRuntime(entity.runtime),
+    revenue: toRevenue(entity.revenue),
+    releaseDate: toLocaleDate(entity.release_date),
+    shortReleaseDate: toLocaleShortDate(entity.release_date),
+    votes: toVote(entity.vote_average),
+    posterImgUrl: toPosterImgUrl(entity.poster_path),
+    thumbnailImgUrl: toThumbnailImgUrl(entity.backdrop_path),
+    backdropImgUrl: toBackdropImgUrl(entity.backdrop_path),
+    videoUrl: toVideoUrl(entity.videos)
+});
+
+const tvReducer = (entity) => ({
+    id: entity.id,
+    name: entity.name,
+    overview: entity.overview,
+    cast: toFeaturedCast(entity.credits),
+    crew: toFeaturedCrew(entity.credits),
+    reviews: toReviews(entity.reviews),
+    similar: toSimilar(tvReducer)(entity.similar),
+    genres: toGenres(entity.genres),
+    runtime: toRuntime(entity.episode_run_time),
+    lastAirDate: toLocaleDate(entity.last_air_date),
+    shortLastAirDate: toLocaleShortDate(entity.last_air_date),
+    totalSeasons: toTotalSeasons(entity.number_of_seasons),
+    totalEpisodes: toTotalEpisodes(entity.number_of_episodes),
+    votes: toVote(entity.vote_average),
+    posterImgUrl: toPosterImgUrl(entity.poster_path),
+    thumbnailImgUrl: toThumbnailImgUrl(entity.backdrop_path),
+    backdropImgUrl: toBackdropImgUrl(entity.backdrop_path),
+    videoUrl: toVideoUrl(entity.videos)
+});
+
 module.exports = {
-    toBackdropImgUrl,
-    toFeaturedCast,
-    toFeaturedCrew,
-    toGenres,
-    toLocaleDate,
-    toLocaleShortDate,
-    toPosterImgUrl,
-    toProfileImgUrl,
-    toRevenue,
-    toReviews,
-    toRuntime,
-    toSimilar,
-    toTotalEpisodes,
-    toTotalSeasons,
-    toVideoUrl,
-    toVote,
-    toVoteCount
+    movieReducer,
+    tvReducer
 };
