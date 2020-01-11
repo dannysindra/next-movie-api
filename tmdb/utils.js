@@ -189,7 +189,6 @@ const movieReducer = (entity) => ({
     shortReleaseDate: toLocaleShortDate(entity.release_date),
     votes: toVote(entity.vote_average),
     posterImgUrl: toPosterImgUrl(entity.poster_path),
-    thumbnailImgUrl: toThumbnailImgUrl(entity.backdrop_path),
     backdropImgUrl: toBackdropImgUrl(entity.backdrop_path),
     videoUrl: toVideoUrl(entity.videos)
 });
@@ -210,7 +209,6 @@ const tvReducer = (entity) => ({
     totalEpisodes: toTotalEpisodes(entity.number_of_episodes),
     votes: toVote(entity.vote_average),
     posterImgUrl: toPosterImgUrl(entity.poster_path),
-    thumbnailImgUrl: toThumbnailImgUrl(entity.backdrop_path),
     backdropImgUrl: toBackdropImgUrl(entity.backdrop_path),
     videoUrl: toVideoUrl(entity.videos)
 });
