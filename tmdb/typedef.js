@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-cloud-functions');
 
 const tmdbTypeDef = gql`
-    type Query {
+    extend type Query {
         movie(id: Int!): Movie
         popularMovies: [Movie]
         upcomingMovies: [Movie]

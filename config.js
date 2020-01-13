@@ -1,9 +1,15 @@
 const { makeExecutableSchema } = require('apollo-server-cloud-functions');
+const admin = require('firebase-admin');
 const merge = require('lodash/merge');
-const { firebaseTypeDef, firebaseResolver, FirebaseAPI } = require('./firebase');
+
+const { firebaseTypeDef, firebaseResolver, FirebaseConnector } = require('./firebase/index');
+const { rootTypeDef } = require('./shared');
 const { tmdbTypeDef, tmdbResolver, TmdbAPI } = require('./tmdb');
 
+admin.initializeApp();
+
 const typeDefs = [
+    rootTypeDef,
     firebaseTypeDef,
     tmdbTypeDef
 ];
@@ -15,8 +21,11 @@ const resolvers = merge(
 );
 
 const dataSources = () => ({
-    firebaseAPI: new FirebaseAPI(),
     tmdbAPI: new TmdbAPI()
+});
+
+const context = () => ({
+    firebase: new FirebaseConnector(admin)
 });
 
 const config = {
@@ -25,6 +34,7 @@ const config = {
         resolvers
     }),
     dataSources,
+    context,
     playground: true,
     introspection: true
 };
