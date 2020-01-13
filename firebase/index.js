@@ -1,9 +1,9 @@
-const { FirebaseAPI } = require('./datasource');
+const { FirebaseConnector } = require('./connector');
 const { firebaseResolver } = require('./resolver');
 const { firebaseTypeDef } = require('./typedef');
 
 module.exports = {
-    FirebaseAPI,
+    FirebaseConnector,
     firebaseResolver,
     firebaseTypeDef
 };
