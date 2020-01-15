@@ -1,40 +1,19 @@
-const { makeExecutableSchema } = require('apollo-server-cloud-functions');
-const admin = require('firebase-admin');
-const merge = require('lodash/merge');
-
-const { firebaseTypeDef, firebaseResolver, FirebaseConnector } = require('./firebase/index');
-const { rootTypeDef } = require('./shared');
-const { tmdbTypeDef, tmdbResolver, TmdbAPI } = require('./tmdb');
-
-admin.initializeApp();
-
-const typeDefs = [
-    rootTypeDef,
-    firebaseTypeDef,
-    tmdbTypeDef
-];
-
-const resolvers = merge(
-    {},
-    firebaseResolver,
-    tmdbResolver
-);
-
-const dataSources = () => ({
-    tmdbAPI: new TmdbAPI()
-});
-
-const context = () => ({
-    firebase: new FirebaseConnector(admin)
-});
+const { FirebaseConnector } = require('./connectors');
+const { TmdbAPI } = require('./datasources');
+const { schema } = require('./schema');
 
 const config = {
-    schema: makeExecutableSchema({
-        typeDefs,
-        resolvers
+    schema,
+    context: () => {
+        return {
+            connectors: {
+                FirebaseAPI: new FirebaseConnector()
+            }
+        };
+    },
+    dataSources: () => ({
+        TmdbAPI: new TmdbAPI()
     }),
-    dataSources,
-    context,
     playground: true,
     introspection: true
 };

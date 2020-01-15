@@ -1,8 +1,9 @@
-const { COLLECTION_WATCHLISTS } = require('./connector');
+const Watchlists = {
+    getWatchlistByUserId: async ({ connectors }, userId) => {
+        const watchlistDoc = await connectors.FirebaseAPI.getWatchlistsRef()
+            .doc(userId)
+            .get();
 
-const Watchlist = {
-    getWatchlistByUserId: async (userId, context) => {
-        const watchlistDoc = await context.firebase.collection(COLLECTION_WATCHLISTS).doc(userId).get();
         let data;
 
         try {
@@ -18,5 +19,5 @@ const Watchlist = {
 };
 
 module.exports = {
-    Watchlist
+    Watchlists
 };

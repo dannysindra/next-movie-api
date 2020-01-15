@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-cloud-functions');
 
-const firebaseTypeDef = gql`
+const Watchlists = gql`
     extend type Query {
         watchlist(id: String!): Watchlist
     }
@@ -10,4 +10,4 @@ const firebaseTypeDef = gql`
     }
 `;
 
-module.exports = { firebaseTypeDef };
+module.exports = { Watchlists };
