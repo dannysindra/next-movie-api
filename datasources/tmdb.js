@@ -36,7 +36,7 @@ class TmdbAPI extends RESTDataSource {
         return await this.get(`tv/${id}`, opts);
     }
 
-    async getPopularTvs() {
+    async getPopularTvs(opts) {
         return await this.get(`tv/popular`, opts);
     }
 }
