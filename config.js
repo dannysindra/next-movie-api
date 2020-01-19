@@ -4,8 +4,9 @@ const { schema } = require('./schema');
 
 const config = {
     schema,
-    context: () => {
+    context: ({ req }) => {
         return {
+            req,
             connectors: {
                 FirebaseAPI: new FirebaseConnector()
             }

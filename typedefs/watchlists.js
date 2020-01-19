@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-cloud-functions');
 
 const Watchlists = gql`
     extend type Query {
-        watchlist(id: String!): Watchlist
+        watchlist: Watchlist
     }
 
     type Watchlist {
