@@ -2,7 +2,7 @@ const { Watchlists } = require('../models');
 
 const watchlists = {
     Query: {
-        watchlist: (_, { id }, context) => Watchlists.getWatchlistByUserId(context, id)
+        watchlist: (_, __, context) => Watchlists.getWatchlistByUserId(context)
     },
     Watchlist: {
         results: ({ results }) => results
