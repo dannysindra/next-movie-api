@@ -1,6 +1,8 @@
 const admin = require('firebase-admin');
 
-admin.initializeApp();
+admin.initializeApp({
+    credential: admin.credential.applicationDefault()
+});
 
 class FirebaseConnector {
     constructor() {
