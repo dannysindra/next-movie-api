@@ -9,6 +9,10 @@ const Root = gql`
     type Query {
         _empty: String
     }
+
+    type Mutation {
+        _empty: String
+    }
 `;
 
 const typeDefs = [
