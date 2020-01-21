@@ -1,12 +1,13 @@
 const { makeExecutableSchema } = require('apollo-server-cloud-functions');
 const merge = require('lodash/merge');
 const { typeDefs } = require('./typedefs');
+const { mutations } = require('./mutations');
 const { queries } = require('./queries');
 
 const resolvers = merge(
     {},
     queries,
-    // mutations,
+    mutations
     // subscriptions
 );
 
