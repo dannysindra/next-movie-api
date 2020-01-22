@@ -9,8 +9,7 @@ const Watchlists = {
             uid = await FirebaseAPI.getUid(req);
         }
         catch (error) {
-            console.log('Error verifying user', error);
-            return;
+            throw new Error('Error verifying user');
         }
 
         // Read the user's watchlist
@@ -19,11 +18,10 @@ const Watchlists = {
                 .doc(uid)
                 .get();
 
-            return watchlistDoc.exists ? watchlistDoc.data() : {results: []};
+            return watchlistDoc.exists ? watchlistDoc.data() : {id: uid, results: []};
         }
         catch (error) {
-            console.log('Error getting document:', error);
-            return;
+            throw new Error('Error getting document');
         }
     },
     addToWatchlist: async ({ connectors: { FirebaseAPI }, req }, entityId) => {
@@ -34,28 +32,18 @@ const Watchlists = {
             uid = await FirebaseAPI.getUid(req);
         }
         catch (error) {
-            console.log('Error verifying user', error);
-
-            return {
-                success: false,
-                message: 'Error verifying user'
-            };
+            throw new Error('Error verifying user');
         }
         
         // Write to the user's watchlist
         try {
             await FirebaseAPI.getWatchlistsRef().doc(uid).update({
-                uid,
+                id: uid,
                 results: firebase.firestore.FieldValue.arrayUnion(entityId)
             });
         }
         catch (error) {
-            console.log('Error writing to document:', error);
-
-            return {
-                success: false,
-                message: 'Error adding to watchlist'
-            };
+            throw new Error('Error adding to watchlist');
         }
 
         // Read the user's watchlist
@@ -68,21 +56,10 @@ const Watchlists = {
                 return Promise.reject('Error retrieving updated watchlist');
             }
             
-            const res = watchlistDoc.exists ? watchlistDoc.data() : {results: []};
-
-            return {
-                success: true,
-                message: 'successfully added to watchlist',
-                results: res.results
-            };
+            return watchlistDoc.exists ? watchlistDoc.data() : {id: uid, results: []};
         }
         catch (error) {
-            console.log('Error retrieving updated watchlist:', error);
-
-            return {
-                success: false,
-                message: 'Error retrieving updated watchlist'
-            };
+            throw new Error('Error retrieving updated watchlist');
         }
     },
     removeFromWatchlist: async ({ connectors: { FirebaseAPI }, req }, entityId) => {
@@ -93,28 +70,18 @@ const Watchlists = {
             uid = await FirebaseAPI.getUid(req);
         }
         catch (error) {
-            console.log('Error verifying user', error);
-
-            return {
-                success: false,
-                message: 'Error verifying user'
-            };
+            throw new Error('Error verifying user');
         }
 
         // Write to the user's watchlist
         try {
             await FirebaseAPI.getWatchlistsRef().doc(uid).update({
-                uid,
+                id: uid,
                 results: firebase.firestore.FieldValue.arrayRemove(entityId)
             });
         }
         catch (error) {
-            console.log('Error writing to document:', error);
-
-            return {
-                success: false,
-                message: 'Error writing to document'
-            };
+            throw new Error('Error writing to document');
         }
 
         // Read the user's watchlist
@@ -127,21 +94,10 @@ const Watchlists = {
                 return Promise.reject('Error retrieving updated watchlist');
             }
             
-            const res = watchlistDoc.exists ? watchlistDoc.data() : {results: []};
-
-            return {
-                success: true,
-                message: 'successfully removed from watchlist',
-                results: res.results
-            };
+            return watchlistDoc.exists ? watchlistDoc.data() : {id: uid, results: []};
         }
         catch (error) {
-            console.log('Error retrieving updated watchlist:', error);
-
-            return {
-                success: false,
-                message: 'Error retrieving updated watchlist'
-            };
+            throw new Error('Error retrieving updated watchlist');
         }
     }
 };
