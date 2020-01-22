@@ -1,6 +1,6 @@
 {
     "name": "next-movie-api",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "dependencies": {
         "apollo-datasource-rest": "^0.1.5",
         "apollo-server-cloud-functions": "2.9.15",

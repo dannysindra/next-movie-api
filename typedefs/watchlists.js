@@ -2,21 +2,16 @@ const { gql } = require('apollo-server-cloud-functions');
 
 const Watchlists = gql`
     extend type Query {
-        watchlist: Watchlist
+        watchlist: Watchlist!
     }
 
     extend type Mutation {
-        addToWatchlist(id: Int!): WatchlistUpdateResponse!
-        removeFromWatchlist(id: Int!): WatchlistUpdateResponse!
+        addToWatchlist(id: Int!): Watchlist!
+        removeFromWatchlist(id: Int!): Watchlist!
     }
 
     type Watchlist {
-        results: [Int]
-    }
-
-    type WatchlistUpdateResponse {
-        success: Boolean!
-        message: String
+        id: String!
         results: [Int]
     }
 `;
