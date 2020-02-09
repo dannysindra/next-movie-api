@@ -12,7 +12,7 @@ const toGenres = genres => genres || [];
 
 const toRuntime = runtime => runtime ? `${runtime} minutes` : 'N/A';
 
-const toVote = vote => vote && vote > 0 ? `${vote} / 10` : 'N/A';
+const toVote = vote => vote && vote > 0 ? `${vote}` : 'N/A';
 
 const toVoteCount = voteCount => voteCount ? voteCount : 'N/A';
 
