@@ -15,28 +15,28 @@ class TmdbAPI extends RESTDataSource {
     }
 
     // Movie
-    async getMovieById(id, opts) {
+    async getMovieById(id, opts = {}) {
         return await this.get(`movie/${id}`, opts);
     }
 
-    async getPopularMovies(opts) {
+    async getPopularMovies(opts = {}) {
         return await this.get(`movie/popular`, opts);
     }
 
-    async getUpcomingMovies(opts) {
+    async getUpcomingMovies(opts = {}) {
         return await this.get(`movie/upcoming`, opts);
     }
 
-    async getNowPlayingMovies(opts) {
+    async getNowPlayingMovies(opts = {}) {
         return await this.get(`movie/now_playing`, opts);
     }
 
     // TV
-    async getTvById(id, opts) {
+    async getTvById(id, opts = {}) {
         return await this.get(`tv/${id}`, opts);
     }
 
-    async getPopularTvs(opts) {
+    async getPopularTvs(opts = {}) {
         return await this.get(`tv/popular`, opts);
     }
 }

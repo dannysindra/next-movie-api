@@ -1,4 +1,5 @@
 const firebase = require('firebase-admin');
+const { movieReducer } = require('./utils');
 
 const Watchlists = {
     getWatchlistByUserId: async ({ connectors: { FirebaseAPI }, req }) => {
@@ -24,6 +25,47 @@ const Watchlists = {
             throw new Error('Error getting document');
         }
     },
+
+    getWatchlistEntriesByUserId: async ({ connectors, dataSources, req }) => {
+        // Get current user ID
+        let uid;
+
+        try {
+            uid = await connectors.FirebaseAPI.getUid(req);
+        }
+        catch (error) {
+            throw new Error('Error verifying user');
+        }
+
+        // Read the watchlist IDs
+        let ids;
+
+        try {
+            const watchlistDoc = await connectors.FirebaseAPI.getWatchlistsRef()
+                .doc(uid)
+                .get();
+
+            ids = watchlistDoc.exists ? watchlistDoc.data().results : [];
+        }
+        catch (error) {
+            throw new Error('Error getting watchlist IDs');
+        }
+
+        // Get the watchlist entries
+        try {
+            const promises = ids.map((id) => dataSources.TmdbAPI.getMovieById(id));
+            const resolved = await Promise.all(promises);
+
+            return {
+                id: uid,
+                results: resolved.map(raw => movieReducer(raw))
+            };
+        }
+        catch (error) {
+            throw new Error('Error getting watchlist entries');
+        }
+    },
+
     addToWatchlist: async ({ connectors: { FirebaseAPI }, req }, entityId) => {
         // Get current user ID
         let uid;
@@ -62,6 +104,7 @@ const Watchlists = {
             throw new Error('Error retrieving updated watchlist');
         }
     },
+
     removeFromWatchlist: async ({ connectors: { FirebaseAPI }, req }, entityId) => {
         // Get current user ID
         let uid;
