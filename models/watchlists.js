@@ -1,4 +1,5 @@
 const firebase = require('firebase-admin');
+const { movieReducer } = require('./utils');
 
 const Watchlists = {
     getWatchlistByUserId: async ({ connectors: { FirebaseAPI }, req }) => {
@@ -40,11 +41,11 @@ const Watchlists = {
         let ids;
 
         try {
-            const watchlistDoc = await FirebaseAPI.getWatchlistsRef()
+            const watchlistDoc = await connectors.FirebaseAPI.getWatchlistsRef()
                 .doc(uid)
                 .get();
 
-                ids = watchlistDoc.exists ? watchlistDoc.data().results : [];
+            ids = watchlistDoc.exists ? watchlistDoc.data().results : [];
         }
         catch (error) {
             throw new Error('Error getting watchlist IDs');
@@ -52,12 +53,13 @@ const Watchlists = {
 
         // Get the watchlist entries
         try {
-            const promises = ids.map((id) => {
-                return dataSources.TmdbAPI.getMovieById(id);
-            });
-            const results = await Promise.all(promises);
+            const promises = ids.map((id) => dataSources.TmdbAPI.getMovieById(id));
+            const resolved = await Promise.all(promises);
 
-            return {id: uid, results};
+            return {
+                id: uid,
+                results: resolved.map(raw => movieReducer(raw))
+            };
         }
         catch (error) {
             throw new Error('Error getting watchlist entries');
