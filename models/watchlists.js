@@ -76,13 +76,25 @@ const Watchlists = {
         catch (error) {
             throw new Error('Error verifying user');
         }
+
+        const docRef = FirebaseAPI.getWatchlistsRef().doc(uid);
         
         // Write to the user's watchlist
         try {
-            await FirebaseAPI.getWatchlistsRef().doc(uid).update({
-                id: uid,
-                results: firebase.firestore.FieldValue.arrayUnion(entityId)
-            });
+            const watchlistDoc = await docRef.get();
+
+            if (watchlistDoc.exists) {
+                await docRef.update({
+                    id: uid,
+                    results: firebase.firestore.FieldValue.arrayUnion(entityId)
+                });
+            }
+            else {
+                await docRef.set({
+                    id: uid,
+                    results: firebase.firestore.FieldValue.arrayUnion(entityId)
+                });
+            }
         }
         catch (error) {
             throw new Error('Error adding to watchlist');
@@ -90,9 +102,7 @@ const Watchlists = {
 
         // Read the user's watchlist
         try {
-            const watchlistDoc = await FirebaseAPI.getWatchlistsRef()
-                .doc(uid)
-                .get();
+            const watchlistDoc = await docRef.get();
 
             if (!watchlistDoc.exists) {
                 return Promise.reject('Error retrieving updated watchlist');
@@ -116,12 +126,18 @@ const Watchlists = {
             throw new Error('Error verifying user');
         }
 
+        const docRef = FirebaseAPI.getWatchlistsRef().doc(uid);
+
         // Write to the user's watchlist
         try {
-            await FirebaseAPI.getWatchlistsRef().doc(uid).update({
-                id: uid,
-                results: firebase.firestore.FieldValue.arrayRemove(entityId)
-            });
+            const watchlistDoc = await docRef.get();
+
+            if (watchlistDoc.exists) {
+                await docRef.update({
+                    id: uid,
+                    results: firebase.firestore.FieldValue.arrayRemove(entityId)
+                });
+            }
         }
         catch (error) {
             throw new Error('Error writing to document');
@@ -129,9 +145,7 @@ const Watchlists = {
 
         // Read the user's watchlist
         try {
-            const watchlistDoc = await FirebaseAPI.getWatchlistsRef()
-                .doc(uid)
-                .get();
+            const watchlistDoc = await docRef.get();
 
             if (!watchlistDoc.exists) {
                 return Promise.reject('Error retrieving updated watchlist');
