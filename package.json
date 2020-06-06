@@ -3,7 +3,7 @@
     "version": "0.5.2",
     "dependencies": {
         "apollo-datasource-rest": "^0.1.5",
-        "apollo-server-cloud-functions": "2.9.15",
+        "apollo-server-cloud-functions": "2.14.2",
         "firebase-admin": "^8.6.0",
         "firebase-functions": "^3.3.0",
         "graphql": "^14.2.1",
