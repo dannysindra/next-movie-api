@@ -10,7 +10,7 @@
         "lodash": "^4.17.15"
     },
     "devDependencies": {
-        "apollo-server": "2.6.1",
+        "apollo-server": "2.14.2",
         "dotenv": "^8.2.0"
     },
     "engines": {
